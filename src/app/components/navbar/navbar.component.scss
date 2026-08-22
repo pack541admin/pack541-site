@@ -232,10 +232,12 @@
   background: rgba(0,0,0,0.4);
   z-index: 1001;
   opacity: 0;
+  pointer-events: none;
   transition: opacity 0.25s;
 
   &.visible {
     opacity: 1;
+    pointer-events: auto;
   }
 }
 
