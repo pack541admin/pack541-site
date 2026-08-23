@@ -17,7 +17,7 @@ export class NavbarComponent {
 
   navItems: NavItem[] = [
     { label: 'Home', path: '/' },
-    { label: 'Activities', path: '/campouts' },
+    { label: 'Events', path: '/events' },
     { label: 'Fundraising', path: '/fundraising' },
     // { label: 'Gallery', path: '/gallery' },
     {

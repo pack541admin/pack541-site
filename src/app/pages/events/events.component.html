@@ -1,0 +1,53 @@
+<div class="page-hero">
+  <h1>Upcoming Events</h1>
+  <p>Stay up to date on everything Pack 541 has planned.</p>
+</div>
+
+<div class="page-content">
+
+  @if (isLoading()) {
+    <div class="loading-state">Loading events…</div>
+  }
+
+  @if (hasError()) {
+    <div class="error-state">
+      Unable to load event information right now. Please try again later or contact
+      <a href="mailto:info@pack541.org">info&#64;pack541.org</a>.
+    </div>
+  }
+
+  @if (!isLoading() && !hasError()) {
+
+    @if (upcomingEvents().length > 0) {
+      <section class="info-section">
+        <div class="card-grid">
+          @for (event of upcomingEvents(); track $index) {
+            <div class="card event-card">
+              <div class="event-icon">{{ iconFor(event) }}</div>
+              <span class="event-type-chip">{{ event.type }}</span>
+              <h3>{{ event.name }}</h3>
+              @if (dateFor(event)) {
+                <p class="event-date">{{ dateFor(event) | date:'MMMM d, y' }}</p>
+              } @else {
+                <p class="event-date">{{ event.date }}</p>
+              }
+              @if (event.description) {
+                <p class="event-description">{{ event.description }}</p>
+              }
+            </div>
+          }
+        </div>
+      </section>
+    }
+
+    @if (upcomingEvents().length === 0) {
+      <div class="empty-state">
+        <span class="empty-icon">📅</span>
+        <h2>No events posted yet</h2>
+        <p>Check back soon — upcoming events will be listed here. You can also email us at <a href="mailto:info@pack541.org">info&#64;pack541.org</a> to ask what's on the calendar.</p>
+      </div>
+    }
+
+  }
+
+</div>

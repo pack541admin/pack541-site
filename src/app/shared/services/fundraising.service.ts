@@ -14,7 +14,7 @@ export class FundraisingService {
   private http = inject(HttpClient);
 
   private readonly csvUrl =
-    'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrI8XOT7bxytNUCYLcsmP1Eop2Svpudjgj_xQuHx8ZNYw7xwQoNS0dpzfEOmOz-gxseQwyTO5iA_7U/pub?gid=1945498067&single=true&output=csv';
+    'https://docs.google.com/spreadsheets/d/e/2PACX-1vQX20coAXiLGEm3m0KNUo9U7ARmq4hueQXWmC0FeC3dfRuiA_3_JKn9Ye5USfb07w/pub?output=csv';
 
   getFundraisers(): Observable<FundraisingData> {
     return this.http.get(this.csvUrl, { responseType: 'text' }).pipe(

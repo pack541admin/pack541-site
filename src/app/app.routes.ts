@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { JoiningComponent } from './pages/joining/joining.component';
-import { ActivitiesComponent } from './pages/activities/activities.component';
+import { EventsComponent } from './pages/events/events.component';
 import { AdultRolesComponent } from './pages/adult-roles/adult-roles.component';
 import { CampingBeginnersComponent } from './pages/camping-beginners/camping-beginners.component';
 import { ScoutingTipsComponent } from './pages/scouting-tips/scouting-tips.component';
@@ -21,7 +21,7 @@ export const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'gallery', component: GalleryComponent },
   { path: 'joining', component: JoiningComponent },
-  { path: 'campouts', component: ActivitiesComponent },
+  { path: 'events', component: EventsComponent },
   { path: 'fundraising', component: FundraisingComponent },
   { path: 'fundraising/:id', component: FundraiserDetailComponent },
   { path: 'adult-roles', component: AdultRolesComponent },

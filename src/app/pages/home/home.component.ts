@@ -25,9 +25,20 @@ export class HomeComponent implements OnInit, OnDestroy {
   
   ngOnInit() {
     this.http.get<string[]>('images/carousel/manifest.json').subscribe(images => {
-      this.carouselImages.set(images);
+      this.carouselImages.set(this.shuffle(images));
       this.startCarousel();
     });
+  }
+
+  // Fisher-Yates shuffle. Randomizes the display order once when the images load;
+  // that order then repeats for the rest of the session.
+  private shuffle<T>(items: T[]): T[] {
+    const shuffled = [...items];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
   }
 
   private startCarousel() {
