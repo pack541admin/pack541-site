@@ -12,6 +12,9 @@ import { ScoutRanksComponent } from './pages/scout-ranks/scout-ranks.component';
 import { VolunteersComponent } from './pages/volunteers/volunteers.component';
 import { GlossaryComponent } from './pages/glossary/glossary.component';
 import { ScoutResourcesComponent } from './pages/scout-resources/scout-resources.component';
+import { NewMembersComponent } from './pages/new-members/new-members.component';
+import { FamilyTalentSurveyComponent } from './pages/family-talent-survey/family-talent-survey.component';
+import { NewScoutFormComponent } from './pages/new-scout-form/new-scout-form.component';
 import { FundraisingComponent } from './pages/fundraising/fundraising.component';
 import { FundraiserDetailComponent } from './pages/fundraiser-detail/fundraiser-detail.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
@@ -21,6 +24,9 @@ export const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'gallery', component: GalleryComponent },
   { path: 'joining', component: JoiningComponent },
+  { path: 'new-members', component: NewMembersComponent },
+  { path: 'family-talent-survey', component: FamilyTalentSurveyComponent },
+  { path: 'new-scout-form', component: NewScoutFormComponent },
   { path: 'events', component: EventsComponent },
   { path: 'fundraising', component: FundraisingComponent },
   { path: 'fundraising/:id', component: FundraiserDetailComponent },

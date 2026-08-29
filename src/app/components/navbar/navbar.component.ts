@@ -23,6 +23,7 @@ export class NavbarComponent {
     {
       label: 'Guides & Resources', path: '/scout-resources',
       children: [
+        { label: 'New Scout Orientation', path: '/new-members' },
         { label: 'Scout Resources', path: '/scout-resources' },
         { label: 'Uniform Guide', path: '/uniform' },
         { label: 'Scout Rank Requirements', path: '/scout-ranks' },

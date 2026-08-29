@@ -1,0 +1,73 @@
+<div class="page-hero">
+  <h1>New Scout &amp; Family Orientation</h1>
+  <p>Welcome to Pack 541!</p> 
+  <p>Here's what to expect when you join our pack!</p>
+</div>
+
+<div class="page-content">
+
+  <section class="info-section">
+    <h2 class="section-title">What's the Time Commitment?</h2>
+    <p>Scouting works best when the whole family is involved. Here's what a typical program year looks like:</p>
+    <ul class="info-list">
+      @for (item of timeCommitment; track item) {
+        <li>{{ item }}</li>
+      }
+    </ul>
+  </section>
+
+  <section class="info-section">
+    <h2 class="section-title">The Parent's Role</h2>
+    <p>
+      Every Scout has an adult partner — called an <strong>Akela</strong> — who attends meetings and helps them
+      complete rank requirements. This can be a parent, grandparent, or other trusted adult over 18.
+    </p>
+    <p>
+      Pack 541 is entirely volunteer-run, so every family is expected to help in one way or another —
+      whether that's a committee role, running an event, or just showing up and pitching in.
+      See <a routerLink="/volunteers">Volunteering</a> and <a routerLink="/adult-roles">Adult Roles</a>
+      for ways to get involved.
+    </p>
+  </section>
+
+  <section class="info-section">
+    <h2 class="section-title">Helpful Guides</h2>
+    <p>A few pages worth bookmarking as you get started:</p>
+    <div class="card-grid">
+      @for (link of quickLinks; track link.path) {
+        <a class="card quick-link-card" [routerLink]="link.path">
+          <h3>{{ link.label }}</h3>
+          <p>{{ link.desc }}</p>
+        </a>
+      }
+    </div>
+  </section>
+
+  <section class="info-section">
+    <h2 class="section-title">What's Next?</h2>
+    <ul class="info-list">
+      @for (step of nextSteps; track step.label) {
+        <li>
+          @if (step.internal) {
+            <a [routerLink]="step.url">{{ step.label }}</a>
+          } @else {
+            <a [href]="step.url" target="_blank" rel="noopener">{{ step.label }}</a>
+          }
+        </li>
+      }
+    </ul>
+    <p class="info-note">
+      Questions along the way? Email us anytime at <a href="mailto:info@pack541.org">info&#64;pack541.org</a>.
+    </p>
+  </section>
+
+  <section class="orientation-download">
+    <h2 class="section-title">Full Orientation Guide</h2>
+    <p>
+      For the complete rundown — pack history, fees, uniform details, safety policies, and the full event
+      calendar — download our New Scout &amp; Family Orientation guide.
+    </p>
+    <a class="btn btn-primary" [href]="orientationPdfUrl" target="_blank" rel="noopener">Download Orientation PDF</a>
+  </section>
+
+</div>
