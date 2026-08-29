@@ -118,3 +118,15 @@
     </div>
   </div>
 </section>
+
+<!-- Fall Recruitment Modal -->
+@if (showRecruitmentModal()) {
+  <div class="recruitment-overlay" (click)="closeRecruitmentModal()">
+    <div class="recruitment-dialog" role="dialog" aria-modal="true" aria-label="Fall Recruitment Drive" (click)="$event.stopPropagation()">
+      <button class="recruitment-close" (click)="closeRecruitmentModal()" aria-label="Close">✕</button>
+      <a routerLink="/joining" (click)="closeRecruitmentModal()">
+        <img src="images/events/fall-recruitment-2026.jpeg" alt="Cub Scout Pack 541 Fall Recruitment Drive — Info & Sign Up Night" />
+      </a>
+    </div>
+  </div>
+}

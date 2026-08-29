@@ -1,7 +1,9 @@
-import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
 
+const RECRUITMENT_MODAL_DISMISSED_KEY = 'pack541-fall-recruitment-modal-dismissed';
+const RECRUITMENT_MODAL_EXPIRES = new Date('2026-09-03T00:00:00');
 
 @Component({
   selector: 'app-home',
@@ -10,24 +12,40 @@ import { RouterLink } from '@angular/router';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  
+
   private http = inject(HttpClient);
 
   carouselImages = signal<string[]>([]);
   activeIndex = signal(0);
   exitingIndex = signal(-1);
 
+  showRecruitmentModal = signal(false);
+
   private intervalId?: ReturnType<typeof setInterval>;
 
   constructor(){
 
   }
-  
+
   ngOnInit() {
     this.http.get<string[]>('images/carousel/manifest.json').subscribe(images => {
       this.carouselImages.set(this.shuffle(images));
       this.startCarousel();
     });
+
+    if (new Date() < RECRUITMENT_MODAL_EXPIRES && !sessionStorage.getItem(RECRUITMENT_MODAL_DISMISSED_KEY)) {
+      this.showRecruitmentModal.set(true);
+    }
+  }
+
+  closeRecruitmentModal(): void {
+    this.showRecruitmentModal.set(false);
+    sessionStorage.setItem(RECRUITMENT_MODAL_DISMISSED_KEY, 'true');
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    if (this.showRecruitmentModal()) this.closeRecruitmentModal();
   }
 
   // Fisher-Yates shuffle. Randomizes the display order once when the images load;
