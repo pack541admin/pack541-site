@@ -222,3 +222,39 @@ a {
     padding: 32px 16px 48px;
   }
 }
+
+/* External text link (label + ↗ icon, opens in a new tab) */
+.external-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--scout-navy);
+  text-decoration: none;
+
+  .external-link-icon {
+    font-size: 0.9em;
+    transition: transform 0.15s;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: var(--scout-gold-dark);
+    text-decoration: underline;
+
+    .external-link-icon { transform: translate(1px, -1px); }
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

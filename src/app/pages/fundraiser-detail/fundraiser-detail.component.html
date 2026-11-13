@@ -94,6 +94,16 @@
       <section class="info-section">
         <h2 class="section-title">About This Fundraiser</h2>
         <p>{{ f.description }}</p>
+        @if (f.linkUrl || (isActive() && flyerSrc())) {
+          <div class="detail-links">
+            @if (isActive() && flyerSrc()) {
+              <button type="button" class="btn btn-secondary flyer-btn" (click)="showFlyer.set(true)">View Flyer</button>
+            }
+            @if (f.linkUrl) {
+              <a class="external-link" [href]="f.linkUrl" target="_blank" rel="noopener noreferrer">{{ f.linkLabel }}<span class="external-link-icon" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+            }
+          </div>
+        }
       </section>
 
       @if (isActive()) {
@@ -160,4 +170,8 @@
       <a class="btn btn-secondary" routerLink="/fundraising">← Back to Fundraisers</a>
     </div>
   }
+}
+
+@if (showFlyer() && flyerSrc(); as src) {
+  <app-flyer-modal [src]="src" (closed)="showFlyer.set(false)" />
 }

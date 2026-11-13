@@ -30,7 +30,12 @@
           <div class="active-icon">{{ f.icon }}</div>
           <div class="active-info">
             <h3>{{ f.name }}</h3>
-            <p class="active-dates">Ends in {{ daysUntilEnd(f) }} {{ daysUntilEnd(f) === 1 ? 'day' : 'days' }} ({{ f.endDate | date:'MMMM d, y' }})</p>
+            <div class="active-meta">
+              <p class="active-dates">Ends in {{ daysUntilEnd(f) }} {{ daysUntilEnd(f) === 1 ? 'day' : 'days' }} ({{ f.endDate | date:'MMMM d, y' }})</p>
+              @if (f.linkUrl) {
+                <a class="external-link" [href]="f.linkUrl" target="_blank" rel="noopener noreferrer">{{ f.linkLabel }}<span class="external-link-icon" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+              }
+            </div>
             <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="progressFor(f)" aria-valuemin="0" aria-valuemax="100">
               <div class="progress-fill" [style.width.%]="progressFor(f)"></div>
             </div>
@@ -43,7 +48,12 @@
               }
             </div>
           </div>
-          <a class="btn btn-primary active-btn" [routerLink]="['/fundraising', f.id]">View Details</a>
+          <div class="active-actions">
+            <a class="btn btn-primary active-btn" [routerLink]="['/fundraising', f.id]">View Details</a>
+            @if (flyerSrc()) {
+              <button type="button" class="btn btn-secondary active-btn" (click)="openFlyer()">View Flyer</button>
+            }
+          </div>
         </div>
       }
     </section>
@@ -78,9 +88,16 @@
             <div class="fundraiser-icon">{{ fundraiser.icon }}</div>
             <h3>{{ fundraiser.name }}</h3>
             <p>{{ fundraiser.description }}</p>
-            <a class="btn btn-secondary fundraiser-btn" [routerLink]="['/fundraising', fundraiser.id]">
-              View Details
-            </a>
+            <div class="fundraiser-actions">
+              <div class="fundraiser-link-slot">
+                @if (fundraiser.linkUrl) {
+                  <a class="external-link" [href]="fundraiser.linkUrl" target="_blank" rel="noopener noreferrer">{{ fundraiser.linkLabel }}<span class="external-link-icon" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+                }
+              </div>
+              <a class="btn btn-secondary fundraiser-btn" [routerLink]="['/fundraising', fundraiser.id]">
+                View Details
+              </a>
+            </div>
           </div>
         } @empty {
           <p>No fundraisers to show right now — check back soon!</p>
@@ -90,3 +107,8 @@
   </section>
 
 </div>
+
+<!-- Fundraising Flyer Modal -->
+@if (showFlyer() && flyerSrc(); as src) {
+  <app-flyer-modal [src]="src" (closed)="closeFlyer()" />
+}

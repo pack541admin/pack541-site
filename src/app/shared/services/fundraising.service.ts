@@ -55,7 +55,9 @@ export class FundraisingService {
         goal: this.parseAmount(cells[6]),
         currentTotal: this.parseAmount(cells[7]),
         reward: cells[8] ?? '',
-        topFundraiser: cells[9] ?? ''
+        topFundraiser: cells[9] ?? '',
+        linkUrl: this.parseUrl(cells[10]),
+        linkLabel: cells[11] || 'Visit site'
       }));
 
     return { fundraisers, additionalFunds };
@@ -65,6 +67,12 @@ export class FundraisingService {
     if (!value) return 0;
     const num = Number(value.replace(/[$,]/g, '').trim());
     return isNaN(num) ? 0 : num;
+  }
+
+  // Only allow absolute http(s) links so a typo in the sheet can't produce a broken or unsafe href.
+  private parseUrl(value: string | undefined): string {
+    const url = (value ?? '').trim();
+    return /^https?:\/\//i.test(url) ? url : '';
   }
 
   private parseRow(row: string): string[] {

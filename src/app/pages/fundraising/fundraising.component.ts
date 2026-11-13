@@ -1,17 +1,55 @@
 import { CurrencyPipe, DatePipe } from '@angular/common';
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, effect, inject, signal, untracked } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Fundraiser } from '../../shared/models/fundraising.model';
 import { FundraisingStore } from '../../shared/stores/fundraising.store';
+import { FlyerStore } from '../../shared/stores/flyer.store';
+import { FlyerModalComponent } from '../../components/flyer-modal/flyer-modal.component';
+
+/**
+ * true  → the flyer pops up automatically when someone visits the Fundraising page
+ *         (once per browser session), as long as a flyer exists and a fundraiser is active.
+ * false → (default) the flyer only opens from the "View Flyer" buttons.
+ * The flyer itself is public/images/fundraising/fundraising-flyer-active.(png|jpg|jpeg|gif|webp).
+ */
+const SHOW_FLYER_ON_PAGE_LOAD = false;
+const FLYER_DISMISSED_KEY = 'pack541-fundraising-flyer-dismissed';
 
 @Component({
   selector: 'app-fundraising',
-  imports: [RouterLink, CurrencyPipe, DatePipe],
+  imports: [RouterLink, CurrencyPipe, DatePipe, FlyerModalComponent],
   templateUrl: './fundraising.component.html',
   styleUrl: './fundraising.component.scss'
 })
 export class FundraisingComponent {
   private store = inject(FundraisingStore);
+
+  flyerSrc = inject(FlyerStore).flyerSrc;
+  showFlyer = signal(false);
+
+  constructor() {
+    if (SHOW_FLYER_ON_PAGE_LOAD && !this.readDismissed()) {
+      // The flyer lookup and the sheet load are both async; pop up once both are ready.
+      effect(() => {
+        if (this.flyerSrc() && this.activeFundraisers().length > 0 && !this.readDismissed()) {
+          untracked(() => this.showFlyer.set(true));
+        }
+      });
+    }
+  }
+
+  openFlyer(): void {
+    this.showFlyer.set(true);
+  }
+
+  closeFlyer(): void {
+    this.showFlyer.set(false);
+    try { sessionStorage.setItem(FLYER_DISMISSED_KEY, 'true'); } catch { /* storage unavailable */ }
+  }
+
+  private readDismissed(): boolean {
+    try { return !!sessionStorage.getItem(FLYER_DISMISSED_KEY); } catch { return false; }
+  }
 
   fundraisers = this.store.fundraisers;
   activeFundraisers = this.store.activeFundraisers;

@@ -1,19 +1,24 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { map } from 'rxjs';
 import { FundraisingStore } from '../../shared/stores/fundraising.store';
+import { FlyerStore } from '../../shared/stores/flyer.store';
+import { FlyerModalComponent } from '../../components/flyer-modal/flyer-modal.component';
 
 @Component({
   selector: 'app-fundraiser-detail',
-  imports: [RouterLink, CurrencyPipe],
+  imports: [RouterLink, CurrencyPipe, FlyerModalComponent],
   templateUrl: './fundraiser-detail.component.html',
   styleUrl: './fundraiser-detail.component.scss'
 })
 export class FundraiserDetailComponent {
   private store = inject(FundraisingStore);
   private route = inject(ActivatedRoute);
+
+  flyerSrc  = inject(FlyerStore).flyerSrc;
+  showFlyer = signal(false);
 
   isLoading = this.store.isLoading;
   hasError  = this.store.error;

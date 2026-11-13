@@ -120,15 +120,35 @@
       margin-bottom: 4px;
     }
 
+    .active-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      column-gap: 16px;
+      row-gap: 4px;
+      margin-bottom: 10px;
+    }
+
     .active-dates {
       font-size: 0.85rem;
       color: var(--text-light);
-      margin-bottom: 10px;
     }
+
+    .external-link { margin-left: auto; }
+  }
+
+  .active-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-shrink: 0;
   }
 
   .active-btn {
     flex-shrink: 0;
+    justify-content: center;
+    text-align: center;
   }
 }
 
@@ -208,9 +228,29 @@
   h3 { color: var(--scout-navy); margin-bottom: 8px; }
   p  { color: var(--text-mid); font-size: 0.9rem; flex: 1; }
 
-  .fundraiser-btn {
-    margin-top: 16px;
-    align-self: center;
+  .fundraiser-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding-top: 16px;
+  }
+
+  // Always rendered at a fixed height, empty or not, so View Details sits at the same spot on every card.
+  .fundraiser-link-slot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.5rem;
+    max-width: 100%;
+
+    .external-link {
+      display: inline-block;
+      max-width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
   }
 }
 
@@ -310,6 +350,6 @@
     flex-direction: column;
     align-items: flex-start;
 
-    .active-btn { align-self: stretch; text-align: center; justify-content: center; }
+    .active-actions { align-self: stretch; }
   }
 }
